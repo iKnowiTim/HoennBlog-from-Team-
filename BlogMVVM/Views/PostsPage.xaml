@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:BlogMVVM.ViewModels"
+             xmlns:view="clr-namespace:BlogMVVM.Views"
+             xmlns:model="clr-namespace:BlogMVVM.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="BlogMVVM.Views.PostsPage"             
+             x:DataType="viewmodel:PostsPageViewModel"
+             x:Name="MyPostsPage" Title="Posts"
+             Shell.BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}"             
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}">
+    <ContentPage.BindingContext>
+        <viewmodel:PostsPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding GoToAddPageCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <!--<StackLayout>
+            <ListView ItemsSource="{Binding Posts}"
+                      CachingStrategy="RecycleElement"
+                      SeparatorVisibility="None"
+                      RefreshControlColor="Red"
+                      IsPullToRefreshEnabled="True"
+                      SelectedItem="{Binding SelectedPost, Mode=TwoWay}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      RefreshCommand="{Binding RefreshListViewCommand}"
+                      HasUnevenRows="True">
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="ItemSelected"
+                                              Command="{Binding SelectedCommand}"
+                                              EventArgsConverter="{StaticResource Key=ItemSelectedEventArgsConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Post">
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete"
+                                          Command="{Binding Source={x:Reference MyPostsPage}, Path=BindingContext.DeleteCommand}"
+                                          CommandParameter="{Binding .}"/>
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <StackLayout>
+                                    <Frame CornerRadius="15"
+                                       HasShadow="True"
+                                       Margin="4">
+                                        <StackLayout>
+                                            <Label FontSize="20">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <FormattedString.Spans>
+                                                            <Span Text="Title: "/>
+                                                            <Span Text="{Binding Title}"/>
+                                                        </FormattedString.Spans>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label FontSize="20">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <FormattedString.Spans>
+                                                            <Span Text="Blog: "/>
+                                                            <Span Text="{Binding Blog.DisplayName}"/>
+                                                        </FormattedString.Spans>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>-->
+
+        <RefreshView RefreshColor="Red"
+                     IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     Command="{Binding RefreshListViewCommand}">
+            <CollectionView BackgroundColor="Transparent"
+                            ItemSizingStrategy="MeasureAllItems"                            
+                            ItemsSource="{Binding Posts}"
+                            SelectedItem="{Binding SelectedPost, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            Margin="5">
+                <CollectionView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="SelectionChanged"
+                                                Command="{Binding SelectedCommand}"/>
+                </CollectionView.Behaviors>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Span="1" Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="12">
+                        <Label FontSize="20" HorizontalOptions="CenterAndExpand" Text="No Posts"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Post">
+                        <SwipeView android:SwipeView.SwipeTransitionMode="Drag">
+                            <SwipeView.RightItems>
+                                <SwipeItem Text="Delete"
+                                           CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={x:Reference MyPostsPage}, Path=BindingContext.DeleteCommand }"/>
+                            </SwipeView.RightItems>
+                            <Frame Style="{StaticResource FrameDefaultStyle}">
+                                <StackLayout>
+                                    <Label Style="{StaticResource DefaultStyleLabel}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="Title: "/>
+                                                    <Span Text="{Binding Title}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource DefaultStyleLabel}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="DisplayName: "/>
+                                                    <Span Text="{Binding Blog.DisplayName}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </RefreshView>
+
+    </ContentPage.Content>
+</ContentPage>

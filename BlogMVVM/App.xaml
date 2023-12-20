@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlogMVVM.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!--Colors-->
+            <Color x:Key="DefaultBackgroundColorTab">#4e0d3a</Color>
+            <Color x:Key="DefaultBackgroundColorPrimary">#5d1049</Color>
+            <Color x:Key="DefaultBackgroundColorElement">#720d5d</Color>
+
+            <Color x:Key="DefaultTextColorDarkMode">Black</Color>
+            <Color x:Key="DefaultTextColorLightMode">White</Color>
+            
+            
+            <!--Styles-->
+
+            <Style x:Key="DefaultStyleLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding
+                    Dark={StaticResource DefaultTextColorDarkMode},
+                    Light={StaticResource DefaultTextColorLightMode},
+                    Default={StaticResource DefaultTextColorLightMode}}"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style x:Key="HeaderStyleLabel" TargetType="Label" BasedOn="{StaticResource DefaultStyleLabel}">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
+            <Style x:Key="BigHeaderStyleLabel" TargetType="Label" BasedOn="{StaticResource HeaderStyleLabel}">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="30"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+
+            <Style x:Key="DefaultStyleStackLayout" TargetType="StackLayout">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="25"/>
+            </Style>
+
+            <Style x:Key="DefaultButtonStyle" TargetType="Button">
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding
+                    Dark={StaticResource DefaultBackgroundColorPrimary},
+                    Light={StaticResource DefaultBackgroundColorPrimary},
+                    Default={StaticResource DefaultBackgroundColorPrimary}}"/>
+                <Setter Property="CornerRadius" Value="50"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding
+                    Dark={StaticResource DefaultTextColorDarkMode},
+                    Light={StaticResource DefaultTextColorLightMode},
+                    Default={StaticResource DefaultTextColorLightMode}}"/>
+            </Style>
+
+            <Style x:Key="FrameDefaultStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorPrimary},
+                                                Light={StaticResource DefaultBackgroundColorPrimary},
+                                                Default={StaticResource DefaultBackgroundColorPrimary}}"/>
+            </Style>
+
+            <Style x:Key="EntryDefaultStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="{AppThemeBinding
+                    Dark={StaticResource DefaultTextColorDarkMode},
+                    Light={StaticResource DefaultTextColorLightMode},
+                    Default={StaticResource DefaultTextColorLightMode}}"/>
+            </Style>
+
+            <Style x:Key="EditorDefaultStyle" TargetType="Editor">
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding
+                    Dark={StaticResource DefaultTextColorDarkMode},
+                    Light={StaticResource DefaultTextColorLightMode},
+                    Default={StaticResource DefaultTextColorLightMode}}"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

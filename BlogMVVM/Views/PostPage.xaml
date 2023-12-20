@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:BlogMVVM.ViewModels"
+             Shell.NavBarIsVisible="False"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="BlogMVVM.Views.MyBlogPage"
+             x:DataType="ViewModel:PostPageViewModel"
+             Shell.BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}"             
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}">
+    <ContentPage.BindingContext>
+        <ViewModel:PostPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Padding="15">
+            <Label HorizontalOptions="Center" Style="{StaticResource HeaderStyleLabel}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="{Binding DisplayName}"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center" Style="{StaticResource HeaderStyleLabel}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="{Binding TitlePost}"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Editor Text="{Binding Content}" Style="{StaticResource EditorDefaultStyle}"/>
+            <Button Command="{Binding PatchPostCommand}" Text="Save"
+                    Style="{StaticResource DefaultButtonStyle}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

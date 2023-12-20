@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:BlogMVVM.ViewModels"
+             xmlns:views="clr-namespace:BlogMVVM.Views"
+             Shell.NavBarIsVisible="False"
+             x:DataType="ViewModel:LoginPageViewModel"
+             x:Class="BlogMVVM.Views.LoginPage"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}">
+    <ContentPage.BindingContext>
+        <ViewModel:LoginPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+
+            <Image Source="AppIcon2.png" Aspect="AspectFill" Opacity="0.5"/>
+            <Label Style="{StaticResource BigHeaderStyleLabel}" Text="HoennBlog" Margin="50" Opacity="0.6"/>
+            <StackLayout Style="{StaticResource DefaultStyleStackLayout}">
+                <Label Text="Login: " Style="{StaticResource HeaderStyleLabel}"/>
+                <Entry Text="{Binding Login}"/>
+                <Label Text="Password: " Style="{StaticResource HeaderStyleLabel}"/>
+                <Entry IsPassword="True" Text="{Binding Password}" Style="{StaticResource EntryDefaultStyle}"/>
+                <Button Text="Sign In" Style="{StaticResource DefaultButtonStyle}" Command="{Binding LoginCommand}"/>
+                <Label Text="Not registered yet?" 
+                       HorizontalOptions="Center"
+                       Style="{StaticResource DefaultStyleLabel}"
+                       FontSize="15">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToRegistrationPageCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

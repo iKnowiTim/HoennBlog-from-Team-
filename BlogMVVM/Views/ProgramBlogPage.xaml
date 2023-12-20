@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:BlogMVVM.ViewModels"
+             xmlns:model="clr-namespace:BlogMVVM.Models"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="BlogMVVM.Views.ProgramBlogPage"
+             x:DataType="viewmodel:BlogPageViewModel"                          
+             x:Name="MyBlogPostsPage"
+             Shell.BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}"             
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}">
+    <ContentPage.BindingContext>
+        <viewmodel:BlogPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding }"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <RefreshView RefreshColor="Red"
+                     IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     Command="{Binding RefreshListViewCommand}">
+            <CollectionView ItemsSource="{Binding Posts}"
+                            ItemSizingStrategy="MeasureAllItems"
+                            SelectedItem="{Binding SelectedPost, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            Margin="5">
+                <CollectionView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="SelectionChanged"
+                                                Command="{Binding SelectedCommand}"/>
+                </CollectionView.Behaviors>
+                    <CollectionView.EmptyView>
+                    <StackLayout Padding="12">
+                        <Label FontSize="20" HorizontalOptions="CenterAndExpand" Text="No Posts"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Post">
+                        <SwipeView android:SwipeView.SwipeTransitionMode="Reveal">
+                            <SwipeView.RightItems>
+                                <SwipeItem Text="Delete"
+                                           CommandParameter="{Binding Source={RelativeSource Self}, Path=BindingContext}"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={x:Reference MyBlogPostsPage}, Path=BindingContext.DeleteCommand }"/>
+                            </SwipeView.RightItems>
+                            <Frame Style="{StaticResource FrameDefaultStyle}">
+                                <StackLayout>
+                                    <Label Style="{StaticResource DefaultStyleLabel}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="Name: "/>
+                                                    <Span Text="{Binding Title}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:ViewModel="clr-namespace:BlogMVVM.ViewModels"
+                 xmlns:model="clr-namespace:BlogMVVM.Models"
+                 x:Class="BlogMVVM.Views.UsersPage"
+                 x:DataType="ViewModel:UsersPageViewModel">
+    <ContentPage.BindingContext>
+        <ViewModel:UsersPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Users}" HasUnevenRows="True" IsPullToRefreshEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:User">
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Frame CornerRadius="15"
+                                           HasShadow="True"
+                                           Margin="4">
+                                    <StackLayout>
+                                        <Label FontSize="20">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="Name: "/>
+                                                        <Span Text="{Binding UserName}"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="20">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="Email: "/>
+                                                        <Span Text="{Binding Email}"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout>
+                        <Button Text="Add"/>
+                    </StackLayout>
+                </ListView.Footer>
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

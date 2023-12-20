@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:BlogMVVM.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:view="view" xmlns:model="clr-namespace:BlogMVVM.Models"
+             x:Class="BlogMVVM.Views.ProfilePage" Title="Profile"
+             Shell.BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}"             
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}">
+    <ContentPage.BindingContext>
+        <viewmodel:ProfilePageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Command="{Binding EditProfileCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame Style="{StaticResource FrameDefaultStyle}">
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout>
+                        <Image Source="profileBackground.jpg"
+                               HeightRequest="120" 
+                               WidthRequest="80"
+                               Aspect="AspectFill"/>
+                    </StackLayout>
+                    <StackLayout Margin="15">
+                        <Label Style="{StaticResource DefaultStyleLabel}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="Name: "/>
+                                        <Span Text="{Binding User.UserName}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Style="{StaticResource DefaultStyleLabel}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="Role: "/>
+                                        <Span Text="{Binding User.Role}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Style="{StaticResource DefaultStyleLabel}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="Email: "/>
+                                        <Span Text="{Binding User.Email}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <xct:TabView TabStripPlacement="Top"                        
+                         TabStripHeight="60"
+                         TabStripBackgroundColor="{StaticResource DefaultBackgroundColorPrimary}"
+                         TabContentBackgroundColor="{StaticResource DefaultBackgroundColorTab}"                         >
+                <xct:TabViewItem Text="Users" TextColor="{AppThemeBinding
+                    Dark={StaticResource DefaultTextColorDarkMode},
+                    Light={StaticResource DefaultTextColorLightMode}}">
+                    <ListView ItemsSource="{Binding Users}"
+                              HasUnevenRows="True"                               
+                              Margin="15"
+                              SelectionMode="None"
+                              VerticalScrollBarVisibility="Never"
+                              SeparatorVisibility="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:User">
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Frame Style="{StaticResource FrameDefaultStyle}">
+                                            <StackLayout>
+                                                <Label Style="{StaticResource DefaultStyleLabel}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <FormattedString.Spans>
+                                                                <Span Text="Name: "/>
+                                                                <Span Text="{Binding UserName}"/>
+                                                            </FormattedString.Spans>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label Style="{StaticResource DefaultStyleLabel}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <FormattedString.Spans>
+                                                                <Span Text="Email: "/>
+                                                                <Span Text="{Binding Email}"/>
+                                                            </FormattedString.Spans>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                        </Frame>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </xct:TabViewItem>
+
+                <xct:TabViewItem Text="MyPosts" TextColor="{AppThemeBinding
+                    Dark={StaticResource DefaultTextColorDarkMode},
+                    Light={StaticResource DefaultTextColorLightMode}}">
+                    <Grid BackgroundColor="Black"/>
+                </xct:TabViewItem>
+
+                <xct:TabViewItem Text="Options" TextColor="{AppThemeBinding
+                    Dark={StaticResource DefaultTextColorDarkMode},
+                    Light={StaticResource DefaultTextColorLightMode}}">
+                    <Grid BackgroundColor="White"/>
+                </xct:TabViewItem>
+
+            </xct:TabView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

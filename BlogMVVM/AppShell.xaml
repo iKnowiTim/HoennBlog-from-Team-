@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:View="clr-namespace:BlogMVVM.Views"      
+       x:Class="BlogMVVM.AppShell">
+    
+    <ShellItem Route="LoginPage" Shell.FlyoutBehavior="Disabled" Title="Login" Shell.FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{x:DataTemplate View:LoginPage}"/>
+    </ShellItem>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate View:PostsPage}" Route="PostsPage" Title="Main"/>
+        <ShellContent ContentTemplate="{DataTemplate View:BlogsPage}" Route="BlogsPage" Title="Blogs"/>
+        <ShellContent ContentTemplate="{DataTemplate View:ProfilePage}" Route="ProfilePage" Title="Profile"/>
+    </FlyoutItem>
+
+    <MenuItem Text="Logout" Command="{Binding LogoutCommand}" CommandParameter="{Binding .}"/>
+
+    <Shell.FlyoutHeader>
+        <View:HeaderContentView/>
+    </Shell.FlyoutHeader>
+    
+</Shell>

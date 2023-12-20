@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:BlogMVVM.ViewModels"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             x:Class="BlogMVVM.Views.RegistrationPage"
+             x:DataType="ViewModel:RegistrationPageViewModel"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}">
+    <ContentPage.BindingContext>
+        <ViewModel:RegistrationPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+            <Image Source="AppIcon.png" Aspect="AspectFit" Opacity="0.3"/>
+            <Label Text="Registration" Style="{StaticResource BigHeaderStyleLabel}"
+                   Margin="50"/>
+            <StackLayout Style="{StaticResource DefaultStyleStackLayout}">
+                
+                <Label Text="Name: " Style="{StaticResource HeaderStyleLabel}"/>
+                <Entry Text="{Binding Name}"/>
+                <Label Text="Email: " Style="{StaticResource HeaderStyleLabel}"/>
+                <Entry Text="{Binding Email}"/>
+                <Label Text="Password: " Style="{StaticResource HeaderStyleLabel}"/>
+                <Entry Text="{Binding Password}"/>
+                <Button Text="Register" Style="{StaticResource DefaultButtonStyle}"
+                    Command="{Binding RegistrationCommand}" VerticalOptions="EndAndExpand"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

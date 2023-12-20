@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:BlogMVVM.ViewModels"
+             x:Class="BlogMVVM.Views.AddBlogPage"
+             Shell.NavBarIsVisible="False"
+             x:DataType="viewmodel:AddBlogPageViewModel"
+             Shell.BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}"             
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DefaultBackgroundColorTab},
+                                                Light={StaticResource DefaultBackgroundColorTab},
+                                                Default={StaticResource DefaultBackgroundColorTab}}">
+    <ContentPage.BindingContext>
+        <viewmodel:AddBlogPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource DefaultStyleStackLayout}">
+            <Label Text="Name" Style="{StaticResource HeaderStyleLabel}"/>
+            <Entry Text="{Binding Name}" Style="{StaticResource EntryDefaultStyle}"/>
+            <Label Text="Display Name" Style="{StaticResource HeaderStyleLabel}"/>
+            <Entry VerticalOptions="FillAndExpand" Text="{Binding DisplayName}"
+                   Style="{StaticResource EntryDefaultStyle}"/>
+            <Button Text="Add Post" Style="{StaticResource DefaultButtonStyle}" Command="{Binding AddBlogCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
